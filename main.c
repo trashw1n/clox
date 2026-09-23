@@ -7,6 +7,7 @@ int main(int argc, const char* argv[]){
     initVM();
     Chunk chunk;
     initChunk(&chunk);
+    //evaluating -((1.2 + 3.4) / 5.6)
     int c1 = addConstant(&chunk, 1.2);
     writeChunk(&chunk, OP_CONSTANT, 123);
     writeChunk(&chunk, c1, 123);
