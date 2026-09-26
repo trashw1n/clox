@@ -1,6 +1,7 @@
 #ifndef clox_compiler_h
 #define clox_compiler_h
+#include "chunk.h"
 
-void compile(const char* src);
+bool compile(const char* src, Chunk* chunk);
 
 #endif
