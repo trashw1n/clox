@@ -11,8 +11,12 @@ typedef struct {
 
 Scanner scn;
 
+static char peek(){
+    return *scn.curr;
+}
+
 static bool isAtEnd(){
-    return *scn.curr == '\0';
+    return peek() == '\0';
 }
 
 static char advance(){
@@ -22,13 +26,9 @@ static char advance(){
 
 static bool match(char expected){
     if(isAtEnd()) return false;
-    if(*scn.curr != expected) return false;
+    if(peek() != expected) return false;
     scn.curr++;
     return true;
-}
-
-static char peek(){
-    return *scn.curr;
 }
 
 static char peekNext(){

@@ -5,6 +5,10 @@
 #include "scanner.h"
 #include "chunk.h"
 
+#ifdef DEBUG_PRINT_CODE
+#include "debug.h"
+#endif
+
 typedef void (*ParseFn)();
 
 typedef struct {
@@ -65,6 +69,7 @@ static void errorAtCurrent(const char* msg){
 static void advance(){
     parser.prev = parser.curr;
     for(;;){
+        //generate tokens on the fly.
         parser.curr = scanToken();
         if(parser.curr.type != TOKEN_ERROR) break;
         errorAtCurrent(parser.curr.start);
@@ -94,6 +99,9 @@ static void emitReturn(){
 
 static void endCompiler(){
     emitReturn();
+    #ifdef DEBUG_PRINT_CODE 
+    if(!parser.hadError) disassembleChunk(currentChunk(), "code");
+    #endif
 }
 
 //forward declarations to handle cyclic calls.
